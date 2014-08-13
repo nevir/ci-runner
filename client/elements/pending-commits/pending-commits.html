@@ -4,7 +4,7 @@
 
 <polymer-element name="pending-commits" attributes="firebaseApp user repo commit">
   <template>
-    <firebase-element location="https://{{firebaseApp}}.firebaseio.com/queue" data="{{queue}}"></firebase-element>
+    <firebase-element location="https://{{firebaseApp}}.firebaseio.com/queue" data="{{queue}}" keys="{{queueKeys}}"></firebase-element>
 
     <!-- TODO(nevir): Can we use core-list more effectively here? -->
     <template repeat="{{event in events}}">
@@ -14,11 +14,15 @@
 
   <script>
     Polymer('pending-commits', {
-      queueChanged: function() {
+      observe: {
+        queue:     '_updateEvents',
+        queueKeys: '_updateEvents'
+      },
+
+      _updateEvents: function() {
         this.events = Object.keys(this.queue).map(function(key) {
           return this.queue[key];
         }.bind(this));
-
         this.async(this._updateSelected);
       },
 
