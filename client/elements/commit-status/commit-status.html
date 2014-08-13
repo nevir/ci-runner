@@ -46,18 +46,12 @@
       .toolbar {
         background-color: lightgray;
       }
-      .details {
-        font-size: 0.7em;
-      }
     </style>
     <firebase-element location="https://{{firebaseApp}}.firebaseio.com/status/{{user}}/{{repo}}/{{commit}}/platforms"
       data="{{results}}" auto?="{{commit}}" on-data-change="{{resultsChanged}}"></firebase-element>
     <firebase-element location="https://{{firebaseApp}}.firebaseio.com/status/{{user}}/{{repo}}/{{commit}}"
       data="{{status}}" auto?="{{commit}}" on-data-change="{{resultsChanged}}"></firebase-element>
     <core-toolbar class="toolbar">
-      <div flex>CI Results
-        <div class="details">{{user}} / {{repo}} <a href="https://github.com/{{user}}/{{repo}}/tree/{{commit}}">{{commit}}</a></div>
-      </div>
       <div hidden?="{{!status.pending}}">Tests in progress...</div>
       <div hidden?="{{!status.error}}">Error occurred running tests</div>
     </core-toolbar>

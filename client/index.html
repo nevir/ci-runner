@@ -19,6 +19,28 @@
       body {
         font-family: Roboto2, 'Helvetica Neue', Helvetica, Arial;
       }
+
+      /*
+        Ideally, we'd just filter the binding: {{params.commit | substr(0, 8)}},
+        but that appears to be broken. (`input` is undefined).
+
+        TODO(nevir): Figure out why.
+       */
+      [tool] {
+        font-size: 0.7em;
+      }
+
+      [tool] a {
+        color: white;
+        text-decoration: none;
+      }
+
+      [tool] .user img {
+        display: inline-block;
+        height: 28px;
+        vertical-align: middle;
+        width: 28px;
+      }
     </style>
   </head>
   <body unresolved>
@@ -28,11 +50,20 @@
 
       <core-scaffold responsiveWidth="800px">
         <div tool>
-          {{params.user}} / {{params.repo}} / {{params.commit}}
+          <span class="user">
+            <img src="https://avatars.githubusercontent.com/{{params.user}}?size=56">
+            <a href="https://github.com/{{params.user}}">{{params.user}}</a>
+          </span>
+          /
+          <a href="https://github.com/{{params.user}}/{{params.repo}}" class="repo">{{params.repo}}</a>
+
+          @<a href="https://github.com/{{params.user}}/{{params.repo}}/commit/{{params.commit}}" class="commit">
+            {{params.commit}}
+          </a>
         </div>
 
         <nav>
-
+          TODO: List of pending tests.
         </nav>
 
         <commit-status firebaseApp="{{firebaseApp}}" user="{{params.user}}" repo="{{params.repo}}" commit="{{params.commit}}"></commit-status>
