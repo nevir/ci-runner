@@ -6,8 +6,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
 
     <script src="components/platform/platform.js"></script>
+    <link rel="import" href="components/core-scaffold/core-scaffold.html">
     <link rel="import" href="elements/commit-status/commit-status.html">
     <link rel="import" href="elements/more-param/more-param.html">
+    <link rel="import" href="elements/more-route/more-route.html">
 
     <style>
       body, html {
@@ -22,8 +24,19 @@
   <body unresolved>
     <template is="auto-binding">
       <more-param key="firebase_app" value="{{firebaseApp}}" default="polymer-ci"></more-param>
-      <more-param key="commitKey" value="{{commitKey}}"></more-param>
-      <commit-status firebaseApp="{{firebaseApp}}" commitKey="{{commitKey}}" fit></commit-status>
+      <more-route route=":user/:repo/:commit" params="{{params}}"></more-route>
+
+      <core-scaffold responsiveWidth="800px">
+        <div tool>
+          {{params.user}} / {{params.repo}} / {{params.commit}}
+        </div>
+
+        <nav>
+
+        </nav>
+
+        <commit-status firebaseApp="{{firebaseApp}}" user="{{params.user}}" repo="{{params.repo}}" commit="{{params.commit}}"></commit-status>
+      </core-scaffold>
     </template>
   </body>
 </html>

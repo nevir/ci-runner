@@ -7,6 +7,7 @@
     "paper-tabs": "Polymer/paper-tabs#master",
     "core-toolbar": "Polymer/core-toolbar#master",
     "core-tooltip": "Polymer/core-tooltip#master",
+    "core-scaffold": "Polymer/core-scaffold#master",
     "core-splitter": "Polymer/core-splitter#master"
   }
 }
