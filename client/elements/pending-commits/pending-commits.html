@@ -1,0 +1,40 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../../components/firebase-element/firebase-element.html">
+<link rel="import" href="commit-item.html">
+
+<polymer-element name="pending-commits" attributes="firebaseApp user repo commit">
+  <template>
+    <firebase-element location="https://{{firebaseApp}}.firebaseio.com/queue" data="{{queue}}"></firebase-element>
+
+    <!-- TODO(nevir): Can we use core-list more effectively here? -->
+    <template repeat="{{event in events}}">
+      <commit-item event="{{event}}" on-tap="{{_selectItem}}"></commit-item>
+    </template>
+  </template>
+
+  <script>
+    Polymer('pending-commits', {
+      queueChanged: function() {
+        this.events = Object.keys(this.queue).map(function(key) {
+          return this.queue[key];
+        }.bind(this));
+
+        this.async(this._updateSelected);
+      },
+
+      _updateSelected: function() {
+        var items = this.shadowRoot.getElementsByTagName('commit-item');
+        for (var i = 0, item; item = items[i]; i++) {
+          item.selected = (item.user == this.user && item.repo == this.repo && item.commit == this.commit);
+        }
+      },
+
+      _selectItem: function(event, index, item) {
+        this.user   = item.user;
+        this.repo   = item.repo;
+        this.commit = item.commit;
+        this._updateSelected();
+      }
+    });
+  </script>
+</polymer-element>

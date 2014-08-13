@@ -8,6 +8,7 @@
     <script src="components/platform/platform.js"></script>
     <link rel="import" href="components/core-scaffold/core-scaffold.html">
     <link rel="import" href="elements/commit-status/commit-status.html">
+    <link rel="import" href="elements/pending-commits/pending-commits.html">
     <link rel="import" href="elements/more-param/more-param.html">
     <link rel="import" href="elements/more-route/more-route.html">
 
@@ -63,7 +64,7 @@
         </div>
 
         <nav>
-          TODO: List of pending tests.
+          <pending-commits firebaseApp="{{firebaseApp}}" user="{{params.user}}" repo="{{params.repo}}" commit="{{params.commit}}"></pending-commits>
         </nav>
 
         <commit-status firebaseApp="{{firebaseApp}}" user="{{params.user}}" repo="{{params.repo}}" commit="{{params.commit}}"></commit-status>
